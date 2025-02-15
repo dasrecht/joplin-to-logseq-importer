@@ -59,7 +59,7 @@ func ProcessFrontMatter(content string, cleanupFrontmatter bool) string {
 				// add stringifiedTags to frontMatter
 				frontMatter.NoteTags = stringifiedTags
 
-				// Remove specified fields if the flag is set
+				// Remove specified fields if the cleanupFrontmatter flag is set
 				if cleanupFrontmatter {
 					frontMatter.Latitude = 0
 					frontMatter.Longitude = 0
@@ -87,10 +87,8 @@ func ProcessFrontMatter(content string, cleanupFrontmatter bool) string {
 		if inFrontMatter {
 			frontMatterLines = append(frontMatterLines, line)
 		} else {
-
 			filteredContent.WriteString(line + "\n")
-
-			// Define the regex pattern to extract the filename from the Markdown link
+			// Define the regex pattern to extract the filename from the Markdown link - this should work most of the time :see_no_evil:
 			var re = regexp.MustCompile(`\[([^\]]+)\]\(([^)]+)\)`)
 			// Check for references to files in the assets folder
 			if strings.Contains(line, "../assets/") {
@@ -137,9 +135,9 @@ func main() {
 	sourceDirectory := "joplin-input"
 	destinationDirectory := "logseq-output"
 
-	// Define keyword replacements
+	// Define replacements
 	keywordReplacements := map[string]string{
-		"_resources": "assets",
+		"_resources": "assets", // Replace _resources with assets - because logseq uses the asset folder
 	}
 
 	// Parse command-line arguments
@@ -221,5 +219,5 @@ func main() {
 		log.Fatalf("Failed to walk through directory: %v", err)
 	}
 
-	fmt.Println("Keyword replacement complete for all Markdown files.")
+	fmt.Println("Logseqification for all Markdown files done.")
 }
