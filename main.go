@@ -30,7 +30,7 @@ type FrontMatter struct {
 }
 
 // ProcessFrontMatter processes the front matter of a Markdown file
-func ProcessFrontMatter(content string, removeTitle bool, cleanupFrontmatter bool) string {
+func ProcessFrontMatter(content string, cleanupFrontmatter bool) string {
 	var frontMatter FrontMatter
 	var filteredContent strings.Builder
 	scanner := bufio.NewScanner(strings.NewReader(content))
@@ -143,7 +143,6 @@ func main() {
 	}
 
 	// Parse command-line arguments
-	removeTitle := flag.Bool("frontmatter-remove-title", false, "Remove lines that start with 'title:'")
 	cleanupFrontmatter := flag.Bool("frontmatter-cleanup", false, "Cleanup Frontmatter")
 	flag.Parse()
 
@@ -185,7 +184,7 @@ func main() {
 			}
 
 			// Process the front matter
-			updatedContent = ProcessFrontMatter(updatedContent, *removeTitle, *cleanupFrontmatter)
+			updatedContent = ProcessFrontMatter(updatedContent, *cleanupFrontmatter)
 
 			// Construct the output file path
 			relPath, err := filepath.Rel(sourceDirectory, path)
