@@ -20,4 +20,4 @@ Upon doing so we check if assets are existing and copy them over to output folde
 
 ## Fair warning and warranty
 
-*frantic laughter* - You have been warned - there is no warranty or guarantee this will work for you. It worked for me, but I make no promises.
+*frantic laughter* - You have been warned - there is no [warranty or guarantee](LICENCE.md) this will work for you. It worked for me, but I make no promises.
